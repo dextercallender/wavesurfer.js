@@ -241,7 +241,8 @@ class Polyline extends EventEmitter<{
 
       // Don't allow to drag past the next or previous point
       const next = Array.from(points).find((point) => point.x > newPoint.x)
-      const prev = Array.from(points).findLast((point) => point.x < newPoint.x)
+      // const prev = Array.from(points).findLast((point: any) => point.x < newPoint.x)
+      const prev = Array.from(points).filter((point: any) => point.x < newPoint.x).pop()
       if ((next && newX >= next.x) || (prev && newX <= prev.x)) {
         return
       }
@@ -314,7 +315,8 @@ class EnvelopePlugin extends BasePlugin<EnvelopePluginEvents, EnvelopePluginOpti
     if (!point.id) point.id = randomId()
 
     // Insert the point in the correct position to keep the array sorted
-    const index = this.points.findLastIndex((p) => p.time < point.time)
+    // const index = this.points.findLastIndex((p :any) => p.time < point.time)
+    const index = this.points.reverse().findIndex((p :any) => p.time < point.time)
     this.points.splice(index + 1, 0, point)
 
     this.emitPoints()
@@ -465,7 +467,8 @@ class EnvelopePlugin extends BasePlugin<EnvelopePluginEvents, EnvelopePluginOpti
     if (!nextPoint) {
       nextPoint = { time: this.wavesurfer.getDuration() || 0, volume: 0 }
     }
-    let prevPoint = this.points.findLast((point) => point.time <= time)
+    // let prevPoint = this.points.findLast()
+    let prevPoint = this.points.filter((point: any) => point.time <= time).pop()
     if (!prevPoint) {
       prevPoint = { time: 0, volume: 0 }
     }

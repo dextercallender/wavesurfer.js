@@ -1,11 +1,11 @@
-import BasePlugin, { type GenericPlugin } from './base-plugin.js'
-import Decoder from './decoder.js'
-import * as dom from './dom.js'
-import Fetcher from './fetcher.js'
-import Player from './player.js'
-import Renderer from './renderer.js'
-import Timer from './timer.js'
-import WebAudioPlayer from './webaudio.js'
+import BasePlugin, { type GenericPlugin } from './base-plugin'
+import Decoder from './decoder'
+import * as dom from './dom'
+import Fetcher from './fetcher'
+import Player from './player'
+import Renderer from './renderer'
+import Timer from './timer'
+import WebAudioPlayer from './webaudio'
 
 export type WaveSurferOptions = {
   /** Required: an HTML element or selector where the waveform will be rendered */

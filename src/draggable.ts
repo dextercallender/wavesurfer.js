@@ -11,7 +11,7 @@ export function makeDraggable(
 
   const isTouchDevice = matchMedia('(pointer: coarse)').matches
 
-  let unsubscribeDocument = () => void 0
+  let unsubscribeDocument : () => any
 
   const onPointerDown = (event: PointerEvent) => {
     if (event.button !== mouseButton) return

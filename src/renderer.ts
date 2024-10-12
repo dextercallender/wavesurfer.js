@@ -1,6 +1,6 @@
-import { makeDraggable } from './draggable.js'
-import EventEmitter from './event-emitter.js'
-import type { WaveSurferOptions } from './wavesurfer.js'
+import { makeDraggable } from './draggable'
+import EventEmitter from './event-emitter'
+import type { WaveSurferOptions } from './wavesurfer'
 
 type RendererEvents = {
   click: [relativeX: number, relativeY: number]
