@@ -1,6 +1,7 @@
 import { makeDraggable } from './draggable'
 import EventEmitter from './event-emitter'
 import type { WaveSurferOptions } from './wavesurfer'
+import { Region } from './plugins/regions'
 
 type RendererEvents = {
   click: [relativeX: number, relativeY: number]
@@ -17,6 +18,7 @@ class Renderer extends EventEmitter<RendererEvents> {
   private static MAX_CANVAS_WIDTH = 8000
   private static MAX_NODES = 10
   private options: WaveSurferOptions
+  private regions: Array<Region> | undefined
   private parent: HTMLElement
   private container: HTMLElement
   private scrollContainer: HTMLElement
@@ -33,11 +35,12 @@ class Renderer extends EventEmitter<RendererEvents> {
   private subscriptions: (() => void)[] = []
   private unsubscribeOnScroll?: () => void
 
-  constructor(options: WaveSurferOptions, audioElement?: HTMLElement) {
+  constructor(options: WaveSurferOptions, audioElement?: HTMLElement, regions?: Array<Region> | undefined) {
     super()
 
     this.subscriptions = []
     this.options = options
+    this.regions = regions
 
     const parent = this.parentFromOptionsContainer(options.container)
     this.parent = parent
@@ -287,6 +290,10 @@ class Renderer extends EventEmitter<RendererEvents> {
     const { scrollWidth } = this.scrollContainer
     const scrollStart = scrollWidth * percent
     this.setScroll(scrollStart)
+  }
+
+  addRegion(region: Region) {
+    this.regions?.push(region)
   }
 
   destroy() {

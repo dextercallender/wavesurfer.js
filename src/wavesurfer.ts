@@ -3,6 +3,7 @@ import Decoder from './decoder'
 import * as dom from './dom'
 import Fetcher from './fetcher'
 import Player from './player'
+import { Region } from './plugins/regions'
 import Renderer from './renderer'
 import Timer from './timer'
 import WebAudioPlayer from './webaudio'
@@ -145,6 +146,7 @@ export type WaveSurferEvents = {
 class WaveSurfer extends Player<WaveSurferEvents> {
   public options: WaveSurferOptions & typeof defaultOptions
   private renderer: Renderer
+  private regions: Array<Region>
   private timer: Timer
   private plugins: GenericPlugin[] = []
   private decodedData: AudioBuffer | null = null
@@ -177,7 +179,8 @@ class WaveSurfer extends Player<WaveSurferEvents> {
     this.timer = new Timer()
 
     const audioElement = media ? undefined : this.getMediaElement()
-    this.renderer = new Renderer(this.options, audioElement)
+    this.renderer = new Renderer(this.options, audioElement, [])
+    this.regions = []
 
     this.initPlayerEvents()
     this.initRendererEvents()
@@ -578,6 +581,12 @@ class WaveSurfer extends Player<WaveSurferEvents> {
     this.unsubscribePlayerEvents()
     super.setMediaElement(element)
     this.initPlayerEvents()
+  }
+
+  /** Add Region */
+  public addRegion(region: Region) {
+    this.regions.push(region)
+    this.renderer.addRegion(region)
   }
 
   /**

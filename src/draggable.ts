@@ -13,7 +13,7 @@ export function makeDraggable(
 
   let unsubscribeDocument : () => any
 
-  const onPointerDown = (event: PointerEvent) => {
+  const onPointerDown = function(event: PointerEvent) {
     if (event.button !== mouseButton) return
 
     event.preventDefault()
@@ -24,7 +24,7 @@ export function makeDraggable(
     let isDragging = false
     const touchStartTime = Date.now()
 
-    const onPointerMove = (event: PointerEvent) => {
+    const onPointerMove = function(event: PointerEvent) {
       event.preventDefault()
       event.stopPropagation()
 
@@ -51,7 +51,7 @@ export function makeDraggable(
       }
     }
 
-    const onPointerUp = (event: PointerEvent) => {
+    const onPointerUp = function(event: PointerEvent) {
       if (isDragging) {
         const x = event.clientX
         const y = event.clientY
@@ -63,21 +63,21 @@ export function makeDraggable(
       unsubscribeDocument()
     }
 
-    const onPointerLeave = (e: PointerEvent) => {
+    const onPointerLeave = function(e: PointerEvent) {
       // Listen to events only on the document and not on inner elements
       if (!e.relatedTarget || e.relatedTarget === document.documentElement) {
         onPointerUp(e)
       }
     }
 
-    const onClick = (event: MouseEvent) => {
+    const onClick = function(event: MouseEvent) {
       if (isDragging) {
         event.stopPropagation()
         event.preventDefault()
       }
     }
 
-    const onTouchMove = (event: TouchEvent) => {
+    const onTouchMove = function(event: TouchEvent) {
       if (isDragging) {
         event.preventDefault()
       }
@@ -90,7 +90,7 @@ export function makeDraggable(
     document.addEventListener('touchmove', onTouchMove, { passive: false })
     document.addEventListener('click', onClick, { capture: true })
 
-    unsubscribeDocument = () => {
+    unsubscribeDocument = function () {
       document.removeEventListener('pointermove', onPointerMove)
       document.removeEventListener('pointerup', onPointerUp)
       document.removeEventListener('pointerout', onPointerLeave)

@@ -2,8 +2,8 @@
  * The Hover plugin follows the mouse and shows a timestamp
  */
 
-import BasePlugin, { type BasePluginEvents } from '../base-plugin.js'
-import createElement from '../dom.js'
+import BasePlugin, { type BasePluginEvents } from '../base-plugin'
+import createElement from '../dom'
 
 export type HoverPluginOptions = {
   lineColor?: string

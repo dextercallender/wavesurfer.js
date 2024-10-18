@@ -2,9 +2,9 @@
  * Record audio from the microphone with a real-time waveform preview
  */
 
-import BasePlugin, { type BasePluginEvents } from '../base-plugin.js'
-import Timer from '../timer.js'
-import type { WaveSurferOptions } from '../wavesurfer.js'
+import BasePlugin, { type BasePluginEvents } from '../base-plugin'
+import Timer from '../timer'
+import type { WaveSurferOptions } from '../wavesurfer'
 
 export type RecordPluginOptions = {
   /** The MIME type to use when recording audio */
